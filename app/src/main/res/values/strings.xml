@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Lab1</string>
+    <string name="question_text">Lab 1 Text</string>
+    <string name="true_button">True</string>
+    <string name="false_button">False</string>
+
 </resources>
