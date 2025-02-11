@@ -40,5 +40,5 @@
         android:layout_height="wrap_content"
         android:text="@string/next_button"
         app:icon="@drawable/arrow_right"
-        app:iconGravity="end" />/>
+        app:iconGravity="end" />
 </LinearLayout>
