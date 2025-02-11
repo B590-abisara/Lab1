@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 private const val TAG = "QuizViewModel"
 
 class QuizViewModel : ViewModel() {
+
     private val questionBank = listOf(
         Question(R.string.question_australia, true),
         Question(R.string.question_oceans, true),
@@ -16,7 +17,7 @@ class QuizViewModel : ViewModel() {
         Question(R.string.question_asia, true)
     )
 
-    private var currentIndex :Int=0
+    private var currentIndex = 0
     val currentQuestionAnswer: Boolean
         get() = questionBank[currentIndex].answer
 
@@ -26,4 +27,5 @@ class QuizViewModel : ViewModel() {
     fun moveToNext() {
         currentIndex = (currentIndex + 1) % questionBank.size
     }
+
 }
