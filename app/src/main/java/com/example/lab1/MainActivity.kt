@@ -25,10 +25,11 @@ class MainActivity : AppCompatActivity1() {
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
-            quizViewModel.isCheater =
-                result.data?.getBooleanExtra(EXTRA_ANSWER_SHOWN, false) ?: false
+            val isCheater = result.data?.getBooleanExtra(EXTRA_ANSWER_SHOWN, false) ?: false
+            if (isCheater) {
+                quizViewModel.markCheated() // Mark only the current question as cheated
+            }
         }
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +56,6 @@ class MainActivity : AppCompatActivity1() {
             cheatLauncher.launch(intent)
         }
         updateQuestion()
-
     }
 
     override fun onStart() {
@@ -82,20 +82,21 @@ class MainActivity : AppCompatActivity1() {
         super.onDestroy()
         Log.d(TAG, "onDestroy() called")
     }
+
     private fun updateQuestion() {
         val questionTextResId = quizViewModel.currentQuestionText
         binding.questionTextView.setText(questionTextResId)
     }
+
     private fun checkAnswer(userAnswer: Boolean) {
         val correctAnswer = quizViewModel.currentQuestionAnswer
 
         val messageResId = when {
-            quizViewModel.isCheater -> R.string.judgment_toast
+            quizViewModel.isCheated() -> R.string.judgment_toast // Judgment toast only for cheated questions
             userAnswer == correctAnswer -> R.string.correct_toast
             else -> R.string.incorrect_toast
         }
 
         Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show()
     }
-
 }

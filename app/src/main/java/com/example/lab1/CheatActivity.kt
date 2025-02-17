@@ -14,7 +14,6 @@ class CheatActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCheatBinding
     private var answerIsTrue = false
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCheatBinding.inflate(layoutInflater)
@@ -28,10 +27,12 @@ class CheatActivity : AppCompatActivity() {
                 else -> R.string.false_button
             }
             binding.answerTextView.setText(answerText)
+
+            // Mark this question as cheated and return result
             setAnswerShownResult(true)
         }
-
     }
+
     private fun setAnswerShownResult(isAnswerShown: Boolean) {
         val data = Intent().apply {
             putExtra(EXTRA_ANSWER_SHOWN, isAnswerShown)
@@ -47,4 +48,3 @@ class CheatActivity : AppCompatActivity() {
         }
     }
 }
-
